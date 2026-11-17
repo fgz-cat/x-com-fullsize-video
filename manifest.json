@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "X.com Full-Size Video",
+  "version": "1.0.0",
+  "description": "Removes the inline max-width style from video containers on x.com so videos display at full size.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "x-com-fullsize-video@local",
+      "strict_min_version": "109.0"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://x.com/*", "*://*.x.com/*", "*://twitter.com/*", "*://*.twitter.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
