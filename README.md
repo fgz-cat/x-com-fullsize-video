@@ -36,5 +36,7 @@ zip -r x-com-fullsize-video.zip manifest.json content.js
 ## How it works
 
 `content.js` finds every `div.css-g5y9jx` with an inline `max-width` that
-contains a video, and removes its `style` attribute. A `MutationObserver`
+contains a video, and removes its `style` attribute. It also removes the
+`style` attribute from every `div` with the classes
+`css-g5y9jx r-1adg3ll r-1udh08x`. A `MutationObserver`
 re-runs this as the page loads new posts or React re-applies the style.

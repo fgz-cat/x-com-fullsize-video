@@ -4,19 +4,28 @@
 (() => {
   "use strict";
 
-  const SELECTOR = 'div.css-g5y9jx[style*="max-width"]';
+  // Video wrappers with an inline max-width (only touched if they contain a video).
+  const VIDEO_WRAPPER_SELECTOR = 'div.css-g5y9jx[style*="max-width"]';
+  // Divs with exactly these classes always have their style removed.
+  const CLASS_SELECTOR = "div.css-g5y9jx.r-1adg3ll.r-1udh08x[style]";
 
   function containsVideo(el) {
     return el.querySelector('video, [data-testid="videoPlayer"], [data-testid="videoComponent"]') !== null;
   }
 
-  function fix(root) {
-    const candidates = [];
-    if (root.matches && root.matches(SELECTOR)) candidates.push(root);
-    if (root.querySelectorAll) candidates.push(...root.querySelectorAll(SELECTOR));
+  function matchAll(root, selector) {
+    const found = [];
+    if (root.matches && root.matches(selector)) found.push(root);
+    if (root.querySelectorAll) found.push(...root.querySelectorAll(selector));
+    return found;
+  }
 
-    for (const div of candidates) {
+  function fix(root) {
+    for (const div of matchAll(root, VIDEO_WRAPPER_SELECTOR)) {
       if (containsVideo(div)) div.removeAttribute("style");
+    }
+    for (const div of matchAll(root, CLASS_SELECTOR)) {
+      div.removeAttribute("style");
     }
   }
 
